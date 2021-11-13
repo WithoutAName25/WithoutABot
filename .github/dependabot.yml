@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/WithoutABotBackend"
+    schedule:
+      interval: "daily"
+      time: "18:00"
+    labels:
+      - "dependencies"
+    reviewers:
+      - "WithoutAName25"
+  - package-ecosystem: "npm"
+    directory: "/WithoutABotFrontend"
+    schedule:
+      interval: "daily"
+      time: "18:00"
+    labels:
+      - "dependencies"
+    reviewers:
+      - "WithoutAName25"
