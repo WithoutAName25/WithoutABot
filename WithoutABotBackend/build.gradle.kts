@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
     implementation("net.dzikoysk:cdn-kt:1.12.3")
-    implementation("net.dv8tion:JDA:4.3.0_346")
+    implementation("net.dv8tion:JDA:4.3.0_348")
     
     val picocli = "4.6.2"
     kapt("info.picocli:picocli-codegen:$picocli")
