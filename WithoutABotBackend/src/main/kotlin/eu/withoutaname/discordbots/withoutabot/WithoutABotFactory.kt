@@ -1,12 +1,11 @@
 package eu.withoutaname.discordbots.withoutabot
 
-import eu.withoutaname.discordbots.withoutabot.config.Config
 import eu.withoutaname.discordbots.withoutabot.config.ActivityConfig
+import eu.withoutaname.discordbots.withoutabot.config.Config
+import eu.withoutaname.discordbots.withoutabot.config.ConfigSource
 import net.dzikoysk.cdn.Cdn
 import net.dzikoysk.cdn.module.standard.StandardModule
-import net.dzikoysk.cdn.source.Source
 import kotlin.io.path.Path
-import kotlin.io.path.exists
 
 object WithoutABotFactory {
 	
@@ -16,8 +15,9 @@ object WithoutABotFactory {
 			.registerModule(StandardModule())
 			.withComposer(ActivityConfig.DEFAULT.javaClass, ActivityConfig.Serializer(), ActivityConfig.Deserializer())
 			.build()
-		val config = if (configPath.exists()) cdn.load(Source.of(configPath), Config()) else Config()
-		cdn.render(config, configPath)
+		var config = Config()
+		val configLoadResult = cdn.load(ConfigSource(configPath), config)
+		if (configLoadResult.isOk) config = configLoadResult.get()
 		
 		return WithoutABot(
 				config
