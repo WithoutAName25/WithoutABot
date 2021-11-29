@@ -26,7 +26,7 @@ dependencies {
     
     testImplementation("org.assertj:assertj-core:3.21.0")
     
-    val junit = "5.8.1"
+    val junit = "5.8.2"
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit")
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junit")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit")
