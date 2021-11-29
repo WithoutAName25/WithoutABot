@@ -2,20 +2,31 @@ package eu.withoutaname.discordbots.withoutabot.config
 
 import net.dzikoysk.cdn.entity.Contextual
 import net.dzikoysk.cdn.entity.Description
+import panda.std.reactive.Reference
 import panda.std.reactive.reference
 import java.io.Serializable
 
 class Config : Serializable {
 	
-	@Description("Settings for the discord bot")
 	@JvmField
-	val discord = reference(DiscordConfig())
+	@Description("# Settings for the discord bot")
+	val bot = reference(BotConfig())
 	
 	@Contextual
-	class DiscordConfig : Serializable {
+	class BotConfig : Serializable {
 		
-		@Description("The token to connect to the discord application")
 		@JvmField
-		var token = reference("")
+		@Description("# The token to connect to the discord application")
+		val token = reference("")
+		
+		@JvmField
+		@Description("")
+		@Description("# Time to wait before showing the next status message (time in ms)")
+		val statusMessagesDelay: Reference<Long> = reference(5000)
+		
+		@JvmField
+		@Description("# List of messages for status messages")
+		@Description("# Use DEFAULT, LISTENING, WATCHING or COMPETING as prefix")
+		val statusMessages: Reference<List<ActivityConfig>> = reference(listOf(ActivityConfig.DEFAULT))
 	}
 }

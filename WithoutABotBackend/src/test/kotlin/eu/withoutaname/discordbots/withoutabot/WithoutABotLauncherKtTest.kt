@@ -9,7 +9,7 @@ internal class WithoutABotLauncherKtTest : WithAssertions {
 	@ParameterizedTest
 	@ValueSource(strings = ["--help", "-h"])
 	fun launchHelp(arg: String) {
-		assertThat(WithoutABotLauncher.create(arg, printStream = null))
+		assertThat(WithoutABotLauncher.create(arg))
 			.isNull()
 	}
 }
