@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "1.6.0"
     kotlin("kapt") version "1.6.0"
     java
+    jacoco
 }
 
 group = "eu.withoutaname.discordbots.withoutabot"
@@ -31,17 +32,21 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit")
 }
 
-tasks.compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-tasks.compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
-tasks.getByName<Test>("test") {
+tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        csv.required.set(false)
+        html.required.set(false)
+        xml.required.set(true)
+    }
 }
