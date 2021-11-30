@@ -7,11 +7,17 @@ import eu.withoutaname.discordbots.withoutabot.config.Config
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Activity
+import net.dv8tion.jda.api.hooks.ListenerAdapter
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.CommandData
 import java.util.*
 
 object Bot {
+	
+	val listeners: Array<ListenerAdapter> = arrayOf(
+			GeneralListener,
+			PingListener
+	)
 	
 	lateinit var jda: JDA
 		private set
@@ -21,10 +27,7 @@ object Bot {
 		jda =
 			JDABuilder
 				.createDefault(config.token.get())
-				.addEventListeners(
-						GeneralListener,
-						PingListener
-				)
+				.addEventListeners(listeners)
 				.build()
 		setupActivities(config)
 		jda.awaitReady()

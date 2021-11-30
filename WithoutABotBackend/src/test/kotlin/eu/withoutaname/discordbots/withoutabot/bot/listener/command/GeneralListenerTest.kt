@@ -1,7 +1,8 @@
 package eu.withoutaname.discordbots.withoutabot.bot.listener.command
 
+import eu.withoutaname.discordbots.withoutabot.bot.listener.mockUser
+import eu.withoutaname.discordbots.withoutabot.bot.listener.onEvent
 import net.dv8tion.jda.api.entities.Message
-import net.dv8tion.jda.api.entities.User
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction
 import org.junit.jupiter.params.ParameterizedTest
@@ -18,9 +19,7 @@ internal class GeneralListenerTest {
 	@ParameterizedTest
 	@MethodSource("testOnButtonClickParams")
 	fun testOnButtonClick(compId: String, userID: String, shouldDelete: Boolean) {
-		val usr = mock<User> {
-			on { id } doReturn userID
-		}
+		val usr = mockUser(userID)
 		val restAction = mock<AuditableRestAction<Void>>()
 		val msg = mock<Message> {
 			on { delete() } doReturn restAction
@@ -31,7 +30,7 @@ internal class GeneralListenerTest {
 			on { message } doReturn msg
 		}
 		
-		GeneralListener.onButtonClick(event)
+		onEvent(event)
 		
 		if (shouldDelete) {
 			Mockito.verify(restAction).queue()
