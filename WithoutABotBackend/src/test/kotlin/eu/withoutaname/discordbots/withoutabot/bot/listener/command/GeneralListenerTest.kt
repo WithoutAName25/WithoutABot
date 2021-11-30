@@ -5,6 +5,7 @@ import eu.withoutaname.discordbots.withoutabot.bot.listener.onEvent
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.Arguments.arguments
@@ -14,6 +15,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import java.util.stream.Stream
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class GeneralListenerTest {
 	
 	@ParameterizedTest
@@ -40,17 +42,13 @@ internal class GeneralListenerTest {
 		}
 	}
 	
-	companion object {
-		
-		@JvmStatic
-		fun testOnButtonClickParams(): Stream<Arguments> {
-			return Stream.of(
-					arguments("delete", "anyUserId", true),
-					arguments("delete_userId", "userId", true),
-					arguments("delete_userId", "otherUserId", false),
-					arguments("anyComponentId", "anyUserId", false)
-			)
-		}
+	private fun testOnButtonClickParams(): Stream<Arguments> {
+		return Stream.of(
+				arguments("delete", "anyUserId", true),
+				arguments("delete_userId", "userId", true),
+				arguments("delete_userId", "otherUserId", false),
+				arguments("anyComponentId", "anyUserId", false)
+		)
 	}
 	
 }
