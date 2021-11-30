@@ -1,9 +1,11 @@
-name: WithoutABot CI
+name: Backend CI
 
 on:
   push:
     branches-ignore: [ dependabot/** ]
+    paths: [ WithoutABotBackend/** ]
   pull_request:
+    paths: [ WithoutABotBackend/** ]
 
 jobs:
   testBackend:
