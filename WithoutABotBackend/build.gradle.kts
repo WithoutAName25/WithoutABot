@@ -25,6 +25,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
     
     testImplementation("org.assertj:assertj-core:3.21.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     
     val junit = "5.8.2"
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit")
