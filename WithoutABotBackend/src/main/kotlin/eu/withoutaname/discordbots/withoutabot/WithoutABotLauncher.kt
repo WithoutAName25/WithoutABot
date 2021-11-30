@@ -10,7 +10,7 @@ object WithoutABotLauncher {
 		cmdLine.execute(*args)
 		
 		return if (parameters.usageHelpRequested) null
-		else WithoutABotFactory.createWithoutABot()
+		else WithoutABotFactory.createWithoutABot(parameters)
 	}
 }
 
