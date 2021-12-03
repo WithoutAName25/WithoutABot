@@ -27,7 +27,7 @@ object Bot {
 		jda =
 			JDABuilder
 				.createDefault(config.token.get())
-				.addEventListeners(listeners)
+				.addEventListeners(*listeners)
 				.build()
 		setupActivities(config)
 		jda.awaitReady()
@@ -56,7 +56,7 @@ object Bot {
 			jda.presence.activity = Activity.of(activity.type, activity.name)
 		}
 		
-		val activities = config.statusMessages
+		val activities = config.statusMessages.get()
 		if (activities.size == 1) {
 			setActivity(activities[0])
 		} else if (activities.size > 1) {

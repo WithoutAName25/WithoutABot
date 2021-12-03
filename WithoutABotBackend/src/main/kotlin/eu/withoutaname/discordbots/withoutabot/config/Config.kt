@@ -26,6 +26,6 @@ class Config : Serializable {
 		@JvmField
 		@Description("# List of messages for status messages")
 		@Description("# Use DEFAULT, LISTENING, WATCHING or COMPETING as prefix")
-		val statusMessages = listOf(ActivityConfig.DEFAULT)
+		val statusMessages = mutableReference(listOf(ActivityConfig.DEFAULT))
 	}
 }
