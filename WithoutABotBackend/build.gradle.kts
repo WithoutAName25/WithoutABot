@@ -24,6 +24,17 @@ dependencies {
     
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
     
+    val ktor = "1.6.6"
+    implementation("io.ktor:ktor-server-core:$ktor")
+    implementation("io.ktor:ktor-auth:$ktor")
+    implementation("io.ktor:ktor-server-sessions:$ktor")
+    implementation("io.ktor:ktor-locations:$ktor")
+    implementation("io.ktor:ktor-server-host-common:$ktor")
+    implementation("io.ktor:ktor-serialization:$ktor")
+    implementation("io.ktor:ktor-server-netty:$ktor")
+    implementation("ch.qos.logback:logback-classic:1.2.7")
+    testImplementation("io.ktor:ktor-server-tests:$ktor")
+    
     testImplementation("org.assertj:assertj-core:3.21.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     
