@@ -24,7 +24,7 @@ dependencies {
     
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
     
-    val ktor = "1.6.6"
+    val ktor = "1.6.7"
     implementation("io.ktor:ktor-server-core:$ktor")
     implementation("io.ktor:ktor-auth:$ktor")
     implementation("io.ktor:ktor-server-sessions:$ktor")
