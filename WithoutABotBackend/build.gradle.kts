@@ -32,7 +32,7 @@ dependencies {
     implementation("io.ktor:ktor-server-host-common:$ktor")
     implementation("io.ktor:ktor-serialization:$ktor")
     implementation("io.ktor:ktor-server-netty:$ktor")
-    implementation("ch.qos.logback:logback-classic:1.2.8")
+    implementation("ch.qos.logback:logback-classic:1.2.9")
     testImplementation("io.ktor:ktor-server-tests:$ktor")
     
     testImplementation("org.assertj:assertj-core:3.21.0")
