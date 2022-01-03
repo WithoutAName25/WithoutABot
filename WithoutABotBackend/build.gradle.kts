@@ -35,7 +35,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.2.10")
     testImplementation("io.ktor:ktor-server-tests:$ktor")
     
-    testImplementation("org.assertj:assertj-core:3.21.0")
+    testImplementation("org.assertj:assertj-core:3.22.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     
     val junit = "5.8.2"
