@@ -1,13 +1,13 @@
 package eu.withoutaname.discordbots.withoutabot.config
 
-import net.dv8tion.jda.api.entities.Activity
+import dev.kord.common.entity.ActivityType
 import net.dzikoysk.cdn.serdes.SimpleDeserializer
 import net.dzikoysk.cdn.serdes.SimpleSerializer
 import panda.std.Result
 
 class ActivityConfig(
-		val type: Activity.ActivityType,
-		val name: String
+	val type: ActivityType,
+	val name: String
 ) {
 	
 	class Serializer : SimpleSerializer<ActivityConfig> {
@@ -26,17 +26,17 @@ class ActivityConfig(
 			return Result.attempt {
 				source?.trim()?.let {
 					var name = it
-					val activity: Activity.ActivityType = try {
+					val activity: ActivityType = try {
 						val typeString = it.split(" ")[0]
 						val type =
 							if (typeString.equals("PLAYING", ignoreCase = true))
-								Activity.ActivityType.DEFAULT
+								ActivityType.Game
 							else
-								Activity.ActivityType.valueOf(typeString.uppercase())
+								ActivityType.valueOf(typeString.uppercase())
 						name = it.substring(typeString.length + 1)
 						type
 					} catch (e: IllegalArgumentException) {
-						Activity.ActivityType.DEFAULT
+						ActivityType.Game
 					}
 					ActivityConfig(activity, name)
 				} ?: DEFAULT
@@ -47,6 +47,6 @@ class ActivityConfig(
 	
 	companion object {
 		
-		val DEFAULT = ActivityConfig(Activity.ActivityType.DEFAULT, "nothing")
+		val DEFAULT = ActivityConfig(ActivityType.Game, "nothing")
 	}
 }

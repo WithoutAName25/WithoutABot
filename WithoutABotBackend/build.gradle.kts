@@ -12,6 +12,7 @@ repositories {
     mavenCentral()
     maven { url = uri("https://m2.dv8tion.net/releases") }
     maven { url = uri("https://repo.panda-lang.org/releases") }
+    maven { url = uri("https://maven.kotlindiscord.com/repository/maven-public") }
 }
 
 dependencies {
@@ -20,7 +21,7 @@ dependencies {
     implementation(kotlin("reflect", kotlinVersion))
 
     implementation("net.dzikoysk:cdn-kt:1.13.4")
-    implementation("net.dv8tion:JDA:4.4.0_352")
+    implementation("dev.kord:kord-core:0.8.0-M8")
     
     val picocli = "4.6.2"
     kapt("info.picocli:picocli-codegen:$picocli")
