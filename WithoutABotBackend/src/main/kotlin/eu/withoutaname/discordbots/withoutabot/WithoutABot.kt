@@ -2,7 +2,7 @@ package eu.withoutaname.discordbots.withoutabot
 
 import eu.withoutaname.discordbots.withoutabot.bot.Bot
 import eu.withoutaname.discordbots.withoutabot.config.Config
-import eu.withoutaname.discordbots.withoutabot.web.api.WebApi
+import eu.withoutaname.discordbots.withoutabot.web.WebApi
 import org.slf4j.LoggerFactory
 import java.util.concurrent.atomic.AtomicBoolean
 

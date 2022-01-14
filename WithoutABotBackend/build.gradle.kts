@@ -15,6 +15,10 @@ repositories {
 }
 
 dependencies {
+    val kotlinVersion = "1.6.0"
+    implementation(kotlin("stdlib", kotlinVersion))
+    implementation(kotlin("reflect", kotlinVersion))
+
     implementation("net.dzikoysk:cdn-kt:1.13.4")
     implementation("net.dv8tion:JDA:4.4.0_352")
     
@@ -22,7 +26,10 @@ dependencies {
     kapt("info.picocli:picocli-codegen:$picocli")
     implementation("info.picocli:picocli:$picocli")
     
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
+    val exposed = "0.36.1"
+    implementation("org.jetbrains.exposed:exposed-core:$exposed")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposed")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposed")
     
     val ktor = "1.6.7"
     implementation("io.ktor:ktor-server-core:$ktor")
