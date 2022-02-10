@@ -22,7 +22,7 @@ dependencies {
     implementation("net.dzikoysk:cdn-kt:1.13.6")
     implementation("net.dv8tion:JDA:4.4.0_352")
     
-    val picocli = "4.6.2"
+    val picocli = "4.6.3"
     kapt("info.picocli:picocli-codegen:$picocli")
     implementation("info.picocli:picocli:$picocli")
     
