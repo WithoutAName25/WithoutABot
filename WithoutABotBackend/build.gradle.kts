@@ -19,7 +19,7 @@ dependencies {
     implementation(kotlin("stdlib", kotlinVersion))
     implementation(kotlin("reflect", kotlinVersion))
 
-    implementation("net.dzikoysk:cdn-kt:1.13.9")
+    implementation("net.dzikoysk:cdn-kt:1.13.10")
     implementation("net.dv8tion:JDA:4.4.0_352")
     
     val picocli = "4.6.3"
