@@ -31,7 +31,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposed")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed")
     
-    val ktor = "1.6.7"
+    val ktor = "1.6.8"
     implementation("io.ktor:ktor-server-core:$ktor")
     implementation("io.ktor:ktor-auth:$ktor")
     implementation("io.ktor:ktor-server-sessions:$ktor")
