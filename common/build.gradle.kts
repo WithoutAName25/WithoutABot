@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
+
 plugins {
     kotlin("multiplatform") version "1.6.20"
 }
@@ -38,4 +41,8 @@ kotlin {
         val jsMain by getting
         val jsTest by getting
     }
+}
+
+rootProject.plugins.withType(YarnPlugin::class.java) {
+    rootProject.the<YarnRootExtension>().lockFileName = "yarn.lock.internal"
 }
