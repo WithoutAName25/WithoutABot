@@ -2,10 +2,8 @@ package eu.withoutaname.withoutabot.backend.bot
 
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
-import dev.kord.core.behavior.interaction.respondEphemeral
-import dev.kord.rest.builder.message.create.embed
-import eu.withoutaname.withoutabot.backend.bot.commands.Test
 import eu.withoutaname.withoutabot.backend.bot.commands.api.commands
+import eu.withoutaname.withoutabot.backend.bot.commands.testCommand
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import kotlin.system.exitProcess
@@ -28,23 +26,7 @@ suspend fun main() {
                 this.enableShutdownHook = true
             }.apply {
                 commands {
-                    on<Test> {
-                        interaction.respondEphemeral {
-                            embed {
-                                if (it.number <= 0) {
-                                    description = "Number must be greater than 0"
-                                } else if (it.number > 10) {
-                                    description = "${it.number} is to big. Number should be smaller or equal than 10"
-                                } else {
-                                    description = ""
-                                    for (i in 1..it.number) {
-                                        if (i != 1) description += "; "
-                                        description += i
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    testCommand()
                 }
             }.login()
         }

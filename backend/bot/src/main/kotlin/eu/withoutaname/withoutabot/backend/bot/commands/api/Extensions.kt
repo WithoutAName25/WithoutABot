@@ -9,6 +9,7 @@ import dev.kord.rest.builder.interaction.ChatInputCreateBuilder
 import dev.kord.rest.builder.message.create.embed
 import eu.withoutaname.withoutabot.backend.bot.ConfigContext
 import eu.withoutaname.withoutabot.backend.bot.LoggingContext
+import kotlin.coroutines.cancellation.CancellationException
 
 context(ConfigContext, LoggingContext) suspend fun Kord.commands(block: Commands.() -> Unit) {
     val commands = Commands().apply(block)
@@ -16,7 +17,9 @@ context(ConfigContext, LoggingContext) suspend fun Kord.commands(block: Commands
     on<ChatInputCommandInteractionCreateEvent> {
         try {
             with(commands) { handle() }
-        } catch (e: Throwable) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+
             interaction.respondEphemeral {
                 embed {
                     description = "An error occurred while trying to handle your command!"

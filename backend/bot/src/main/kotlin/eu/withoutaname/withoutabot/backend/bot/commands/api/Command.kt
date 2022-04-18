@@ -1,10 +1,14 @@
 package eu.withoutaname.withoutabot.backend.bot.commands.api
 
 import dev.kord.core.Kord
+import dev.kord.core.entity.Attachment
+import dev.kord.core.entity.Entity
+import dev.kord.core.entity.Role
+import dev.kord.core.entity.User
+import dev.kord.core.entity.channel.ResolvedChannel
 import dev.kord.core.entity.interaction.InteractionCommand
 import dev.kord.core.event.interaction.ChatInputCommandInteractionCreateEvent
-import dev.kord.rest.builder.interaction.ChatInputCreateBuilder
-import dev.kord.rest.builder.interaction.int
+import dev.kord.rest.builder.interaction.*
 import eu.withoutaname.withoutabot.backend.bot.ConfigContext
 import eu.withoutaname.withoutabot.backend.bot.changedName
 import eu.withoutaname.withoutabot.backend.bot.description
@@ -29,11 +33,11 @@ class Command<T : Any>(
     }
 
     suspend fun ChatInputCommandInteractionCreateEvent.handleCommand() {
-        val args = params.map { with(it) { interaction.command.receiveValue() } }.toTypedArray()
-        block(kClass.constructors.first().call(*args))
+        val args = params.mapNotNull { with(it) { interaction.command.receiveValue() } }.toMap()
+        block(kClass.constructors.first().callBy(args))
     }
 
-    class Parameter(kParameter: KParameter) {
+    class Parameter(private val kParameter: KParameter) {
 
         val name = kParameter.changedName
         val description = kParameter.description
@@ -42,14 +46,24 @@ class Command<T : Any>(
 
         fun ChatInputCreateBuilder.registerParameter() = with(this@Parameter.type) { register(this@Parameter) }
 
-        fun InteractionCommand.receiveValue() = with(this@Parameter.type) { receiveValue(this@Parameter) }
+        fun InteractionCommand.receiveValue() =
+            with(type) { receiveValue(this@Parameter) }?.let { Pair(kParameter, it) }
 
         enum class Type(
             val register: ChatInputCreateBuilder.(Parameter) -> Unit,
-            val receiveValue: InteractionCommand.(Parameter) -> Any
+            val receiveValue: InteractionCommand.(Parameter) -> Any?
         ) {
 
-            INT({ int(it.name, it.description) { required = it.required } }, { integers[it.name]!!.toIntIfPossible() });
+            STRING({ string(it.name, it.description) { required = it.required } }, { strings[it.name] }),
+            INT({ int(it.name, it.description) { required = it.required } }, { integers[it.name]?.toIntIfPossible() }),
+            LONG({ int(it.name, it.description) { required = it.required } }, { integers[it.name] }),
+            DOUBLE({ number(it.name, it.description) { required = it.required } }, { numbers[it.name] }),
+            BOOLEAN({ boolean(it.name, it.description) { required = it.required } }, { booleans[it.name] }),
+            USER({ user(it.name, it.description) { required = it.required } }, { users[it.name] }),
+            CHANNEL({ channel(it.name, it.description) { required = it.required } }, { channels[it.name] }),
+            ROLE({ role(it.name, it.description) { required = it.required } }, { roles[it.name] }),
+            ENTITY({ mentionable(it.name, it.description) { required = it.required } }, { mentionables[it.name] }),
+            ATTACHMENT({ attachment(it.name, it.description) { required = it.required } }, { attachments[it.name] });
 
             companion object {
 
@@ -59,7 +73,16 @@ class Command<T : Any>(
                         throw UnsupportedOperationException("Type is not a supported command parameter type!")
                     }
                     return when (classifier) {
+                        String::class -> STRING
                         Int::class -> INT
+                        Long::class -> LONG
+                        Double::class -> DOUBLE
+                        Boolean::class -> BOOLEAN
+                        User::class -> USER
+                        ResolvedChannel::class -> CHANNEL
+                        Role::class -> ROLE
+                        Entity::class -> ENTITY
+                        Attachment::class -> ATTACHMENT
                         else -> throw UnsupportedOperationException("${classifier.simpleName} is not a supported command parameter type!")
                     }
                 }
