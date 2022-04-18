@@ -6,10 +6,10 @@ plugins {
     application
 }
 
-group = "eu.withoutaname.withoutabot.server"
+group = "eu.withoutaname.withoutabot.backend"
 
 application {
-    // TODO mainClass
+    mainClass.set("eu.withoutaname.withoutabot.backend.bot.BotKt")
 }
 
 repositories {
@@ -19,7 +19,17 @@ repositories {
 dependencies {
     implementation(project(":backend:common"))
 
+    implementation(kotlin("reflect"))
+
+    implementation("dev.kord", "kord-core", "0.8.0-M12")
+    implementation("ch.qos.logback", "logback-classic", "1.2.10")
+
     testImplementation(kotlin("test"))
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 tasks.test {
@@ -27,5 +37,8 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+    kotlinOptions {
+        jvmTarget = "18"
+        freeCompilerArgs = listOf("-Xcontext-receivers")
+    }
 }

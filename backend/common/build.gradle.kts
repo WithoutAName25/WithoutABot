@@ -5,7 +5,7 @@ plugins {
     `java-library`
 }
 
-group = "eu.withoutaname.withoutabot.server"
+group = "eu.withoutaname.withoutabot.backend"
 
 repositories {
     mavenCentral()
@@ -13,7 +13,13 @@ repositories {
 
 dependencies {
     api(project(":common"))
+
     testImplementation(kotlin("test"))
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 tasks.test {

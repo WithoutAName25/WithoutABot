@@ -6,7 +6,7 @@ plugins {
     application
 }
 
-group = "eu.withoutaname.withoutabot.server"
+group = "eu.withoutaname.withoutabot.backend"
 
 application {
     // TODO mainClass
@@ -19,6 +19,11 @@ repositories {
 dependencies {
     implementation(project(":backend:common"))
     testImplementation(kotlin("test"))
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 tasks.test {
