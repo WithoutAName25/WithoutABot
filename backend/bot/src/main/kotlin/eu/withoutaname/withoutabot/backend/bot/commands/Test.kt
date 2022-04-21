@@ -15,7 +15,11 @@ data class Test(
 
     @Name("custom")
     @Description("Optional test parameter")
-    val s: String = "Test"
+    val s: String?,
+
+    @Name("with-default")
+    @Description("Optional test parameter with default value")
+    val s2: String = "default"
 )
 
 fun Commands.testCommand() {
@@ -34,8 +38,13 @@ fun Commands.testCommand() {
                     }
                 }
             }
+            if (it.s != null) {
+                embed {
+                    description = it.s
+                }
+            }
             embed {
-                description = it.s
+                description = it.s2
             }
         }
     }

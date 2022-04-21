@@ -41,13 +41,15 @@ class Command<T : Any>(
 
         val name = kParameter.changedName
         val description = kParameter.description
-        val required = kParameter.isOptional.not()
+        val required = kParameter.isOptional.not() && kParameter.type.isMarkedNullable.not()
         private val type = Type.of(kParameter.type)
 
         fun ChatInputCreateBuilder.registerParameter() = with(this@Parameter.type) { register(this@Parameter) }
 
-        fun InteractionCommand.receiveValue() =
-            with(type) { receiveValue(this@Parameter) }?.let { Pair(kParameter, it) }
+        fun InteractionCommand.receiveValue(): Pair<KParameter, Any?>? {
+            val value = with(type) { receiveValue(this@Parameter) }
+            return if (value != null || kParameter.type.isMarkedNullable) kParameter to value else null
+        }
 
         enum class Type(
             val register: ChatInputCreateBuilder.(Parameter) -> Unit,
