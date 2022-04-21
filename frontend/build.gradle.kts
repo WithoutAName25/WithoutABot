@@ -11,7 +11,7 @@ repositories {
 dependencies {
     implementation(project(":apiCommon"))
 
-    val reactVersion = "17.0.2-pre.290-kotlin-1.6.10"
+    val reactVersion = "18.0.0-pre.331-kotlin-1.6.20"
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$reactVersion")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$reactVersion")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-css:$reactVersion")
