@@ -1,0 +1,9 @@
+version: "3"
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: backend/bot/Dockerfile
+    environment:
+      BOT_TOKEN: "$COMPOSE_BOT_TOKEN"
+      TEST_SERVER: "$COMPOSE_TEST_SERVER"
