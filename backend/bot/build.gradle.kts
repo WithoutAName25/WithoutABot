@@ -22,7 +22,7 @@ dependencies {
     implementation(kotlin("reflect"))
 
     implementation("dev.kord:kord-core:0.8.0-M12")
-    implementation("ch.qos.logback:logback-classic:1.2.10")
+    implementation("ch.qos.logback:logback-classic:1.2.11")
 
     testImplementation(kotlin("test"))
 }
