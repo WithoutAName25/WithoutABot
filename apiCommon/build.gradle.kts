@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.6.20"
+    kotlin("multiplatform")
 }
 
 group = "eu.withoutaname.withoutabot"
@@ -11,7 +11,7 @@ repositories {
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "17"
+            kotlinOptions.jvmTarget = "18"
         }
         withJava()
         testRuns["test"].executionTask.configure {

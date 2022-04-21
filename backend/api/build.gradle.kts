@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.20"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    kotlin("jvm")
+    id("com.github.johnrengelman.shadow")
     application
 }
 
@@ -10,6 +10,7 @@ group = "eu.withoutaname.withoutabot.backend"
 
 application {
     // TODO mainClass
+    mainClass.set("")
 }
 
 repositories {
@@ -31,5 +32,5 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+    kotlinOptions.jvmTarget = "18"
 }

@@ -1,0 +1,58 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+      time: "18:00"
+    labels:
+      - dependencies
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: daily
+      time: "18:00"
+    labels:
+      - dependencies
+  - package-ecosystem: gradle
+    directory: /apiCommon/
+    schedule:
+      interval: daily
+      time: "18:00"
+    labels:
+      - dependencies
+  - package-ecosystem: gradle
+    directory: /backend/api/
+    schedule:
+      interval: daily
+      time: "18:00"
+    labels:
+      - dependencies
+  - package-ecosystem: gradle
+    directory: /backend/bot/
+    schedule:
+      interval: daily
+      time: "18:00"
+    labels:
+      - dependencies
+  - package-ecosystem: gradle
+    directory: /backend/common/
+    schedule:
+      interval: daily
+      time: "18:00"
+    labels:
+      - dependencies
+  - package-ecosystem: gradle
+    directory: /common/
+    schedule:
+      interval: daily
+      time: "18:00"
+    labels:
+      - dependencies
+  - package-ecosystem: gradle
+    directory: /frontend/
+    schedule:
+      interval: daily
+      time: "18:00"
+    labels:
+      - dependencies
