@@ -7,3 +7,20 @@ services:
     environment:
       BOT_TOKEN: "$COMPOSE_BOT_TOKEN"
       TEST_SERVER: "$COMPOSE_TEST_SERVER"
+    depends_on:
+      - db
+  db:
+    image: mariadb
+    environment:
+      MARIADB_RANDOM_ROOT_PASSWORD: yes
+      MARIADB_DATABASE: withoutabot
+      MARIADB_USER: withoutabot
+      MARIADB_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+    tmpfs:
+      - /var/lib/mysql
+volumes:
+  db:

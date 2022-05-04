@@ -8,10 +8,11 @@ import dev.kord.core.on
 import dev.kord.rest.builder.interaction.ChatInputCreateBuilder
 import dev.kord.rest.builder.message.create.embed
 import eu.withoutaname.withoutabot.backend.bot.ConfigContext
-import eu.withoutaname.withoutabot.backend.bot.LoggingContext
+import eu.withoutaname.withoutabot.backend.common.LoggingContext
 import kotlin.coroutines.cancellation.CancellationException
 
-context(ConfigContext, LoggingContext) suspend fun Kord.commands(block: Commands.() -> Unit) {
+context(ConfigContext, LoggingContext) suspend
+fun Kord.commands(block: Commands.() -> Unit) {
     val commands = Commands().apply(block)
     with(commands) { register() }
     on<ChatInputCommandInteractionCreateEvent> {
@@ -31,7 +32,8 @@ context(ConfigContext, LoggingContext) suspend fun Kord.commands(block: Commands
     }
 }
 
-context(ConfigContext) suspend fun Kord.createChatInputCommand(
+context(ConfigContext) suspend
+fun Kord.createChatInputCommand(
     name: String,
     description: String,
     builder: ChatInputCreateBuilder.() -> Unit = {}

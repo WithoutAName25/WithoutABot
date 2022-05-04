@@ -14,6 +14,15 @@ repositories {
 dependencies {
     api(project(":common"))
 
+    api("org.slf4j:slf4j-api:1.7.36")
+
+    val exposed = "0.38.1"
+    api("org.jetbrains.exposed:exposed-core:$exposed")
+    api("org.jetbrains.exposed:exposed-dao:$exposed")
+    api("org.jetbrains.exposed:exposed-jdbc:$exposed")
+    implementation("mysql:mysql-connector-java:8.0.29")
+    implementation("com.zaxxer:HikariCP:3.4.2")
+
     testImplementation(kotlin("test"))
 }
 
@@ -27,5 +36,8 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "18"
+    kotlinOptions {
+        jvmTarget = "18"
+        freeCompilerArgs = listOf("-Xcontext-receivers")
+    }
 }
