@@ -21,7 +21,7 @@ dependencies {
     api("org.jetbrains.exposed:exposed-dao:$exposed")
     api("org.jetbrains.exposed:exposed-jdbc:$exposed")
     implementation("mysql:mysql-connector-java:8.0.29")
-    implementation("com.zaxxer:HikariCP:3.4.2")
+    implementation("com.zaxxer:HikariCP:5.0.1")
 
     testImplementation(kotlin("test"))
 }
