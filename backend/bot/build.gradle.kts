@@ -21,7 +21,7 @@ dependencies {
 
     implementation(kotlin("reflect"))
 
-    implementation("dev.kord:kord-core:0.8.0-M13")
+    implementation("dev.kord:kord-core:0.8.0-M14")
 
     runtimeOnly("ch.qos.logback:logback-classic:1.2.11")
 
