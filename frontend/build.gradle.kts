@@ -17,7 +17,7 @@ dependencies {
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-css:$reactVersion")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.3.0-pre.341-compat")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-pre.341-compat")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.341-compat")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.342-compat")
 
     testImplementation(kotlin("test"))
 }
