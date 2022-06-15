@@ -3,7 +3,6 @@ package eu.withoutaname.withoutabot.backend.common
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import com.zaxxer.hikari.pool.HikariPool.PoolInitializationException
-import eu.withoutaname.withoutabot.backend.common.tables.InfoCommandActionRows
 import eu.withoutaname.withoutabot.backend.common.tables.InfoCommandActions
 import eu.withoutaname.withoutabot.backend.common.tables.InfoCommands
 import kotlinx.coroutines.delay
@@ -15,7 +14,7 @@ context(LoggingContext) suspend
 fun initDB() {
     connectToDB()
     transaction {
-        SchemaUtils.createMissingTablesAndColumns(InfoCommands, InfoCommandActionRows, InfoCommandActions)
+        SchemaUtils.createMissingTablesAndColumns(InfoCommands, InfoCommandActions)
     }
 }
 

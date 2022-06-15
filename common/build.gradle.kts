@@ -30,7 +30,12 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                api(project.dependencies.enforcedPlatform("io.ktor:ktor-bom:2.0.2"))
+                api(project.dependencies.enforcedPlatform("dev.kord:kord-bom:0.8.0-M14"))
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -38,7 +43,11 @@ kotlin {
         }
         val jvmMain by getting
         val jvmTest by getting
-        val jsMain by getting
+        val jsMain by getting {
+            dependencies {
+                api(project.dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.336"))
+            }
+        }
         val jsTest by getting
     }
 }

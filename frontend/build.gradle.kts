@@ -1,5 +1,6 @@
 plugins {
     kotlin("js")
+    kotlin("plugin.serialization")
 }
 
 group = "eu.withoutaname.withoutabot"
@@ -11,13 +12,17 @@ repositories {
 dependencies {
     implementation(project(":apiCommon"))
 
-    val reactVersion = "18.0.0-pre.331-kotlin-1.6.20"
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$reactVersion")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$reactVersion")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-css:$reactVersion")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.3.0-pre.343")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-pre.343")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.343")
+
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom")
+    implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
+
+    implementation("io.ktor:ktor-client-core")
+    implementation("io.ktor:ktor-client-js")
+    implementation("io.ktor:ktor-client-resources")
+    implementation("io.ktor:ktor-client-content-negotiation")
+    implementation("io.ktor:ktor-serialization-kotlinx-json")
 
     testImplementation(kotlin("test"))
 }

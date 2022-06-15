@@ -6,7 +6,7 @@ import eu.withoutaname.withoutabot.backend.bot.Description
 import eu.withoutaname.withoutabot.backend.bot.Name
 import eu.withoutaname.withoutabot.backend.bot.commands.api.Commands
 
-@Name("test")
+@Name("count")
 @Description("Only for test purposes")
 data class Test(
 
@@ -22,7 +22,7 @@ data class Test(
     val s2: String = "default"
 )
 
-fun Commands.testCommand() {
+fun Commands.countCommand() {
     on<Test> {
         interaction.respondEphemeral {
             embed {

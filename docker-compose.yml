@@ -1,5 +1,16 @@
 version: "3"
 services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/api/Dockerfile
+    ports:
+      - "8888:80"
+    environment:
+      DISCORD_CLIENT_ID: "$COMPOSE_DISCORD_CLIENT_ID"
+      DISCORD_CLIENT_SECRET: "$COMPOSE_DISCORD_CLIENT_SECRET"
+    depends_on:
+      - db
   bot:
     build:
       context: .
@@ -20,7 +31,15 @@ services:
       - "3306:3306"
     volumes:
       - db:/var/lib/mysql
-    tmpfs:
-      - /var/lib/mysql
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      API_URL: "http://api"
+    ports:
+      - "80:80"
+    depends_on:
+      - api
 volumes:
   db:

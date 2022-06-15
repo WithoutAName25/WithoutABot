@@ -2,8 +2,8 @@ package eu.withoutaname.withoutabot.backend.bot
 
 import dev.kord.core.Kord
 import eu.withoutaname.withoutabot.backend.bot.commands.api.commands
+import eu.withoutaname.withoutabot.backend.bot.commands.countCommand
 import eu.withoutaname.withoutabot.backend.bot.commands.infoCommands
-import eu.withoutaname.withoutabot.backend.bot.commands.testCommand
 import eu.withoutaname.withoutabot.backend.common.context
 import eu.withoutaname.withoutabot.backend.common.initDB
 import org.slf4j.LoggerFactory
@@ -17,7 +17,7 @@ suspend fun main() {
             }.apply {
                 infoCommands()
                 commands {
-                    testCommand()
+                    countCommand()
                 }
             }.login()
         }

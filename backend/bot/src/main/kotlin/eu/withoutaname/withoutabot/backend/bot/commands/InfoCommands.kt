@@ -1,6 +1,7 @@
 package eu.withoutaname.withoutabot.backend.bot.commands
 
 import dev.kord.common.Color
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
 import dev.kord.core.behavior.interaction.respondEphemeral
 import dev.kord.core.behavior.interaction.respondPublic
@@ -22,7 +23,12 @@ context(ConfigContext, LoggingContext) suspend
 fun Kord.infoCommands() {
     newSuspendedTransaction {
         InfoCommandDefinition.find { InfoCommands.enabled eq true }.forEach {
-            createChatInputCommand(it.command, it.description)
+            val serverId = it.server
+            if (serverId == null) {
+                createChatInputCommand(it.command, it.description)
+            } else {
+                createGuildChatInputCommand(Snowflake(serverId), it.command, it.description)
+            }
         }
     }
 
@@ -51,13 +57,11 @@ private fun InteractionResponseCreateBuilder.respond(command: InfoCommandUsage) 
     } else {
         content = command.info
     }
-    command.actionRows.forEach { actionRow ->
-        if (actionRow.actions.isNotEmpty()) {
-            actionRow {
-                actionRow.actions.forEach { action ->
-                    linkButton(action.url) {
-                        label = action.label
-                    }
+    command.actions.forEach { actionRow ->
+        actionRow {
+            actionRow.forEach { action ->
+                linkButton(action.url) {
+                    label = action.label
                 }
             }
         }
