@@ -1,5 +1,6 @@
 package eu.withoutaname.withoutabot.backend.api
 
+import dev.kord.rest.request.KtorRequestHandler
 import dev.kord.rest.service.RestClient
 import eu.withoutaname.withoutabot.backend.api.dao.InfoCommandDetails
 import eu.withoutaname.withoutabot.backend.common.context
@@ -9,7 +10,9 @@ import eu.withoutaname.withoutabot.common.api.InfoCommand
 import eu.withoutaname.withoutabot.common.api.routes.InfoCommandsRoute
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
+import io.ktor.client.request.*
 import io.ktor.http.*
+import io.ktor.http.HttpHeaders.Authorization
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -20,6 +23,7 @@ import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
+import io.ktor.util.pipeline.*
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.slf4j.LoggerFactory
@@ -30,11 +34,6 @@ import io.ktor.server.plugins.contentnegotiation.ContentNegotiation as ServerCon
 suspend fun main() {
     with(LoggerFactory.getLogger("WithoutABot").context()) {
         initDB()
-        val applicationHttpClient = HttpClient(CIO) {
-            install(ClientContentNegotiation) {
-                json()
-            }
-        }
         embeddedServer(Netty) {
             install(Sessions) {
                 cookie<UserSession>("user_session") {
@@ -62,7 +61,7 @@ suspend fun main() {
                             listOf("identify", "guilds")
                         )
                     }
-                    client = applicationHttpClient
+                    client = HttpClient(CIO)
                 }
             }
             install(ServerContentNegotiation) {
@@ -81,14 +80,8 @@ suspend fun main() {
                 }
                 authenticate("auth-session") {
                     get("/hello") {
-                        call.principal<UserSession>()?.let {
-//                            val response = applicationHttpClient.get("https://discord.com/api/v10/users/@me") {
-//                                headers.append("Authorization", "Bearer ${it.token}")
-//                            }
-//                            call.respondText("Hello ${response.bodyAsText()}")
-
-                            val restClient = RestClient(it.token)
-                            call.respond(restClient.user.getCurrentUser())
+                        useRestClient {
+                            call.respondText(it.user.getCurrentUser().username)
                         }
                     }
                 }
@@ -131,3 +124,23 @@ suspend fun main() {
 }
 
 data class UserSession(val token: String) : Principal
+
+val kordClient = HttpClient(CIO) {
+    install(ClientContentNegotiation) {
+        json()
+    }
+}.apply {
+    requestPipeline.intercept(HttpRequestPipeline.Before) {
+        context.headers[Authorization]?.removePrefix("Bot ")?.let {
+            context.headers.remove(Authorization)
+            context.headers.append(Authorization, "Bearer $it")
+        }
+    }
+}
+
+inline fun PipelineContext<Unit, ApplicationCall>.useRestClient(block: (RestClient) -> Unit) {
+    call.principal<UserSession>()?.let {
+        val restClient = RestClient(KtorRequestHandler(kordClient, token = it.token))
+        block(restClient)
+    }
+}
