@@ -45,7 +45,7 @@ kotlin {
         val jvmTest by getting
         val jsMain by getting {
             dependencies {
-                api(project.dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.347"))
+                api(project.dependencies.enforcedPlatform("org.jetbrains.kotlin-wrappers:kotlin-wrappers-bom:1.0.0-pre.348-compat"))
             }
         }
         val jsTest by getting
