@@ -33,7 +33,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project.dependencies.enforcedPlatform("io.ktor:ktor-bom:2.0.3"))
-                api(project.dependencies.enforcedPlatform("dev.kord:kord-bom:0.8.0-M14"))
+                api(project.dependencies.enforcedPlatform("dev.kord:kord-bom:0.8.0-M15"))
             }
         }
         val commonTest by getting {
