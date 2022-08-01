@@ -16,7 +16,7 @@ dependencies {
 
     api("org.slf4j:slf4j-api:1.7.36")
 
-    val exposed = "0.38.2"
+    val exposed = "0.39.1"
     api("org.jetbrains.exposed:exposed-core:$exposed")
     api("org.jetbrains.exposed:exposed-dao:$exposed")
     api("org.jetbrains.exposed:exposed-jdbc:$exposed")
