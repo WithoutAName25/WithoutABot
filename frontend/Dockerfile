@@ -1,25 +1,32 @@
-FROM openjdk:18-slim AS build
-WORKDIR /home/gradle/src
+FROM node:18 AS base
+WORKDIR /app
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH "$PATH:/root/.bun/bin"
+COPY package.json bun.lockb ./
+RUN bun install
+COPY prisma prisma
+RUN bun run prisma:generate
+COPY . .
 
-COPY build.gradle.kts build.gradle.kts
-COPY gradle.properties gradle.properties
-COPY gradlew gradlew
-COPY settings.gradle.kts settings.gradle.kts
-COPY buildSrc/ buildSrc/
-COPY gradle/ gradle/
-COPY common/build.gradle.kts common/build.gradle.kts
-COPY apiCommon/build.gradle.kts apiCommon/build.gradle.kts
-COPY frontend/build.gradle.kts frontend/build.gradle.kts
-RUN ./gradlew frontend:build clean --no-daemon
+FROM base as lint
+RUN bun run lint
 
-COPY common/src/ common/src/
-COPY apiCommon/src/ apiCommon/src/
-COPY frontend/src/ frontend/src/
-COPY frontend/webpack.config.d/ frontend/webpack.config.d/
-RUN ./gradlew frontend:build --no-daemon
+FROM base as check
+RUN bun run check
 
+FROM base AS unittest
+RUN bun run test:unit:ci
 
-FROM nginx
-EXPOSE 80
-COPY frontend/nginx/default.conf.template /etc/nginx/templates/default.conf.template
-COPY --from=build /home/gradle/src/frontend/build/distributions/ /usr/share/nginx/html/
+FROM base AS e2etest
+RUN bun run playwright:install:withDebs
+RUN bun run test:e2e
+
+FROM base AS build
+RUN bun run build
+
+FROM node:18-slim AS final
+WORKDIR /app
+COPY --from=build /app/build build
+COPY --from=build /app/node_modules node_modules
+COPY --from=build /app/package.json .
+CMD node build

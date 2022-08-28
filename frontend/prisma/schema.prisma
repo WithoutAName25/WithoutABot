@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model InfoCommandActions {
+  command      Int
+  row          Int          @db.TinyInt
+  position     Int          @db.TinyInt
+  url          String       @db.VarChar(255)
+  label        String       @db.VarChar(255)
+  InfoCommands InfoCommands @relation(fields: [command], references: [id], onUpdate: Restrict, map: "fk_InfoCommandActions_command__id")
+
+  @@unique([command, row, position], map: "InfoCommandActions_command_row_position_unique")
+}
+
+model InfoCommands {
+  id                 Int                  @id @default(autoincrement())
+  server             BigInt?
+  command            String               @db.VarChar(50)
+  description        String               @db.VarChar(255)
+  info               String               @db.VarChar(10000)
+  ephemeral          Boolean              @default(true)
+  embed              Boolean              @default(true)
+  color              Int?
+  enabled            Boolean              @default(true)
+  InfoCommandActions InfoCommandActions[]
+
+  @@unique([server, command], map: "InfoCommands_server_command_unique")
+}
+
+model Statuses {
+  id       Int     @id
+  type     String  @default("Game") @db.VarChar(9)
+  name     String  @db.VarChar(255)
+  url      String? @db.VarChar(255)
+  duration Int     @default(30)
+}

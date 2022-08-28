@@ -1,20 +1,9 @@
 version: "3"
 services:
-  api:
-    build:
-      context: .
-      dockerfile: backend/api/Dockerfile
-    ports:
-      - "8888:80"
-    environment:
-      DISCORD_CLIENT_ID: "$COMPOSE_DISCORD_CLIENT_ID"
-      DISCORD_CLIENT_SECRET: "$COMPOSE_DISCORD_CLIENT_SECRET"
-    depends_on:
-      - db
   bot:
     build:
       context: .
-      dockerfile: backend/bot/Dockerfile
+      dockerfile: bot/Dockerfile
     environment:
       BOT_TOKEN: "$COMPOSE_BOT_TOKEN"
       TEST_SERVER: "$COMPOSE_TEST_SERVER"
@@ -23,7 +12,7 @@ services:
   db:
     image: mariadb
     environment:
-      MARIADB_RANDOM_ROOT_PASSWORD: yes
+      MARIADB_RANDOM_ROOT_PASSWORD: "yes"
       MARIADB_DATABASE: withoutabot
       MARIADB_USER: withoutabot
       MARIADB_PASSWORD: password
@@ -33,13 +22,13 @@ services:
       - db:/var/lib/mysql
   frontend:
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
+      context: frontend
     environment:
-      API_URL: "http://api"
+      PORT: "80"
+      DATABASE_URL: "mysql://withoutabot:password@db:3306/withoutabot"
     ports:
       - "80:80"
     depends_on:
-      - api
+      - db
 volumes:
   db:

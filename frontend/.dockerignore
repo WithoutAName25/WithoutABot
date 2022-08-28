@@ -1,0 +1,17 @@
+*
+
+!.svelte-kit/tsconfig.json
+!prisma
+!src
+!static
+!tests
+!.eslintignore
+!.eslintrc.cjs
+!.prettierignore
+!.prettierrc
+!bun.lockb
+!package.json
+!playwright.config.ts
+!svelte.config.js
+!tsconfig.json
+!vite.config.js
