@@ -6,7 +6,7 @@
   export let status: Statuses
 
   const dispatcher = createEventDispatcher()
-  let error: string
+  let error: string | undefined
 
   async function save() {
     const response = await fetch("/statuses/" + status.id, {

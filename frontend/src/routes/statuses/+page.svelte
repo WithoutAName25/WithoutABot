@@ -1,18 +1,17 @@
 <script lang="ts">
+  import type { PageData } from "./$types"
   import Status from "./_Status.svelte"
-  import type { Statuses } from "../../scripts/prisma"
 
-  export let statuses: Statuses[]
+  export let data: PageData
 
   async function reload() {
     const response = await fetch("/statuses/__data.json")
     if (response.ok) {
-      const data = await response.json()
-      statuses = data.statuses
+      data = await response.json()
     }
   }
 </script>
 
-{#each statuses as status}
+{#each data.statuses as status}
   <Status {status} on:reload={reload} />
 {/each}
