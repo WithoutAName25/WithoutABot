@@ -25,7 +25,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.36")
     runtimeOnly("ch.qos.logback:logback-classic:1.2.11")
 
-    implementation(enforcedPlatform("org.jetbrains.exposed:exposed-bom:0.38.2"))
+    implementation(enforcedPlatform("org.jetbrains.exposed:exposed-bom:0.39.2"))
     implementation("org.jetbrains.exposed:exposed-core")
     implementation("org.jetbrains.exposed:exposed-dao")
     implementation("org.jetbrains.exposed:exposed-jdbc")
