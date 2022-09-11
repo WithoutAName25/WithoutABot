@@ -26,6 +26,9 @@ services:
     environment:
       PORT: "80"
       DATABASE_URL: "mysql://withoutabot:password@db:3306/withoutabot"
+      DISCORD_CLIENT_ID: "$COMPOSE_DISCORD_CLIENT_ID"
+      DISCORD_CLIENT_SECRET: "$COMPOSE_DISCORD_CLIENT_SECRET"
+      JWT_SECRET: "$COMPOSE_JWT_SECRET"
     ports:
       - "80:80"
     depends_on:

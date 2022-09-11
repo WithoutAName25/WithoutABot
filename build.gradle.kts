@@ -11,8 +11,8 @@ plugins {
 }
 
 scmVersion {
-    nextVersion.apply {
-        suffix = "next"
+    nextVersion {
+        suffix.set("next")
     }
     versionIncrementer("incrementPrerelease")
 }

@@ -3,8 +3,10 @@ import type { Statuses } from "$lib/prisma"
 import { validateStatus } from "$lib/prisma"
 import type { RequestHandler } from "./$types"
 import { getErrorResponse } from "$lib/error"
+import { validateBotAdmin } from "$lib/auth"
 
 export const PATCH: RequestHandler = async ({ params, request }) => {
+  await validateBotAdmin(request)
   const data = await request.json()
   const id = parseInt(params.id)
   const current = await prismaClient.statuses.findUnique({ where: { id } })
@@ -49,7 +51,8 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
   )
 }
 
-export const DELETE: RequestHandler = async ({ params }) => {
+export const DELETE: RequestHandler = async ({ params, request }) => {
+  await validateBotAdmin(request)
   const id = parseInt(params.id)
   await prismaClient.statuses.delete({ where: { id } })
   await prismaClient.statuses.updateMany({

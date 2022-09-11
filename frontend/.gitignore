@@ -1,5 +1,4 @@
-/src/generated
 /.svelte-kit
-/node_modules
 /build
-
+/node_modules
+*.local

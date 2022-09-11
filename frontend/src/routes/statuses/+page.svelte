@@ -9,7 +9,8 @@
   async function reload() {
     const response = await fetch("/statuses/api")
     if (response.ok) {
-      data = await response.json()
+      let res = await response.json()
+      data = { ...data, ...res }
     }
   }
 
