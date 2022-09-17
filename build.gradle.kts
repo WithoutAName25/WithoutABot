@@ -7,7 +7,7 @@ plugins {
     kotlin("plugin.serialization") version "$kotlinVersion" apply false
 
     id("com.github.johnrengelman.shadow") version "7.1.2" apply false
-    id("pl.allegro.tech.build.axion-release") version "1.14.0"
+    id("pl.allegro.tech.build.axion-release") version "1.14.1"
 }
 
 scmVersion {
