@@ -1,6 +1,5 @@
 package eu.withoutaname.withoutabot
 
-import dev.kord.common.entity.ActivityType
 import dev.kord.core.Kord
 import eu.withoutaname.withoutabot.commands.api.commands
 import eu.withoutaname.withoutabot.commands.countCommand
@@ -32,30 +31,20 @@ suspend fun main() {
 }
 
 context(LoggingContext)
-        private fun Kord.configurePresence() {
+private fun Kord.configurePresence() {
     val job = launch {
         delay(5.seconds)
         while (true) {
             newSuspendedTransaction {
                 val statuses = Status.all().orderBy(Statuses.id to SortOrder.ASC)
                 if (statuses.empty()) {
+                    editPresence {}
                     delay(30.seconds)
                     return@newSuspendedTransaction
                 }
                 statuses.forEach {
                     editPresence {
-                        when (it.type) {
-                            ActivityType.Game -> playing(it.name)
-                            ActivityType.Listening -> listening(it.name)
-                            ActivityType.Watching -> watching(it.name)
-                            ActivityType.Competing -> competing(it.name)
-                            ActivityType.Streaming -> {
-                                val url = it.url
-                                if (url != null) streaming(it.name, url)
-                            }
-
-                            else -> {}
-                        }
+                        it.type.apply(this, it)
                     }
                     delay(it.duration.seconds)
                 }
