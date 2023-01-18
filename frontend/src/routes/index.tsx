@@ -1,14 +1,16 @@
 import { component$, Resource } from "@builder.io/qwik"
 import type { RequestHandler } from "@builder.io/qwik-city"
 import { useEndpoint } from "@builder.io/qwik-city"
+import { prisma } from "~/lib/prisma"
 
 interface MyData {
   name: string
 }
 
 export const onGet: RequestHandler<MyData> = async () => {
+  const { name } = await prisma.statuses.findUniqueOrThrow({ where: { id: 1 } })
   return {
-    name: "World",
+    name,
   }
 }
 
