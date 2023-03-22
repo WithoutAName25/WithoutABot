@@ -6,7 +6,7 @@ plugins {
     kotlin("js") version "$kotlinVersion" apply false
     kotlin("plugin.serialization") version "$kotlinVersion" apply false
 
-    id("com.github.johnrengelman.shadow") version "8.1.0" apply false
+    id("com.github.johnrengelman.shadow") version "8.1.1" apply false
     id("pl.allegro.tech.build.axion-release") version "1.15.0"
 }
 
