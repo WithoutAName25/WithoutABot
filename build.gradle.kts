@@ -1,5 +1,5 @@
 plugins {
-    val kotlinVersion = "1.9.0"
+    val kotlinVersion = "1.9.10"
     // use template string for dependabot!
     kotlin("multiplatform") version "$kotlinVersion" apply false
     kotlin("jvm") version "$kotlinVersion" apply false
