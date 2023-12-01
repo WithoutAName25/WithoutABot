@@ -23,7 +23,7 @@ dependencies {
     implementation("dev.kord:kord-core")
 
     implementation("org.slf4j:slf4j-api:2.0.9")
-    runtimeOnly("ch.qos.logback:logback-classic:1.4.11")
+    runtimeOnly("ch.qos.logback:logback-classic:1.4.14")
 
     implementation(enforcedPlatform("org.jetbrains.exposed:exposed-bom:0.44.0"))
     implementation("org.jetbrains.exposed:exposed-core")
