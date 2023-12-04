@@ -30,7 +30,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao")
     implementation("org.jetbrains.exposed:exposed-jdbc")
     implementation("mysql:mysql-connector-java:8.0.33")
-    implementation("com.zaxxer:HikariCP:5.0.1")
+    implementation("com.zaxxer:HikariCP:5.1.0")
 
     testImplementation(kotlin("test"))
 }
