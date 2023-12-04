@@ -19,7 +19,7 @@ repositories {
 dependencies {
     implementation(kotlin("reflect"))
 
-    implementation(enforcedPlatform("dev.kord:kord-bom:0.11.1"))
+    implementation(enforcedPlatform("dev.kord:kord-bom:0.12.0"))
     implementation("dev.kord:kord-core")
 
     implementation("org.slf4j:slf4j-api:2.0.9")
