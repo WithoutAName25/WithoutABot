@@ -1,22 +1,21 @@
 plugins {
-    val kotlinVersion = "1.9.22"
-    // use template string for dependabot!
-    kotlin("multiplatform") version "$kotlinVersion" apply false
-    kotlin("jvm") version "$kotlinVersion" apply false
-    kotlin("js") version "$kotlinVersion" apply false
-    kotlin("plugin.serialization") version "$kotlinVersion" apply false
-
-    id("com.github.johnrengelman.shadow") version "8.1.1" apply false
-    id("pl.allegro.tech.build.axion-release") version "1.16.1"
+    kotlin("jvm") version "1.9.21"
 }
 
-scmVersion {
-    nextVersion {
-        suffix.set("next")
-    }
-    versionIncrementer("incrementPrerelease")
+group = "eu.withoutaname.withoutabot"
+version = "0.1.0"
+
+repositories {
+    mavenCentral()
 }
 
-allprojects {
-    version = rootProject.scmVersion.version
+dependencies {
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(17)
 }
