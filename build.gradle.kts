@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.9.21"
+    alias(libs.plugins.kotlin.jvm)
     application
 }
 
@@ -17,9 +17,9 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.kord:kord-core:0.13.1")
+    implementation(libs.kord.extensions)
 
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation(libs.kotlin.test)
 }
 
 tasks.withType<KotlinCompile>().configureEach {
