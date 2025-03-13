@@ -1,10 +1,11 @@
 [versions]
-kord-extensions = "1.6.0"
-kotlin = "1.9.21"
+kordex = "2.3.1-SNAPSHOT"
+kordex-gradle = "1.6.1"
+kotlin = "2.1.0"
 
 [libraries]
-kord-extensions = { module = "com.kotlindiscord.kord.extensions:kord-extensions", version.ref = "kord-extensions" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kord-ex = { id = "dev.kordex.gradle.kordex", version.ref = "kordex-gradle" }

@@ -1,8 +1,8 @@
 package eu.withoutaname.withoutabot
 
-import com.kotlindiscord.kord.extensions.ExtensibleBot
-import com.kotlindiscord.kord.extensions.utils.env
-import com.kotlindiscord.kord.extensions.utils.envOrNull
+import dev.kordex.core.ExtensibleBot
+import dev.kordex.core.utils.env
+import dev.kordex.core.utils.envOrNull
 
 suspend fun main() {
     val bot = ExtensibleBot(env("BOT_TOKEN")) {
@@ -11,7 +11,6 @@ suspend fun main() {
         }
         extensions {
             add(::PingCommand)
-            add(::TicTacToe)
         }
     }
 
